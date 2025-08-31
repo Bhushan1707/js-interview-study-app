@@ -17,20 +17,22 @@ const Header = ({ toggleSidebar }) => {
           </Link>
         </div>
         
-        <nav className="header-nav">
-          <Link to="/" className="nav-link">
-            <Target size={18} />
-            Dashboard
-          </Link>
-          <Link to="/study-plan" className="nav-link">
-            <BookOpen size={18} />
-            Study Plan
-          </Link>
-          <Link to="/progress" className="nav-link">
-            <BarChart3 size={18} />
-            Progress
-          </Link>
-        </nav>
+        <div className="header-right">
+          <nav className="header-nav">
+            <Link to="/" className="nav-link">
+              <Target size={18} />
+              Dashboard
+            </Link>
+            <Link to="/study-plan" className="nav-link">
+              <BookOpen size={18} />
+              Study Plan
+            </Link>
+            <Link to="/progress" className="nav-link">
+              <BarChart3 size={18} />
+              Progress
+            </Link>
+          </nav>
+        </div>
       </div>
     </header>
   );

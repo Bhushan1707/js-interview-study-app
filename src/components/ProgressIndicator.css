@@ -1,0 +1,400 @@
+/* Progress Indicators Styles */
+.progress-indicators {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Circular Progress */
+.circular-progress {
+  position: relative;
+  display: inline-block;
+}
+
+.progress-ring {
+  transform: rotate(-90deg);
+}
+
+.progress-ring-background {
+  opacity: 0.3;
+}
+
+.progress-ring-progress {
+  transition: stroke-dashoffset 1s cubic-bezier(0.4, 0, 0.2, 1);
+  stroke-linecap: round;
+}
+
+.progress-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.progress-percentage {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+/* Linear Progress */
+.linear-progress-container {
+  width: 100%;
+}
+
+.progress-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.linear-progress {
+  width: 100%;
+  background: #f1f5f9;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+}
+
+.linear-progress-fill {
+  height: 100%;
+  border-radius: 10px;
+  transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.linear-progress-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  animation: shimmer 2s infinite;
+}
+
+/* Achievement Badge */
+.achievement-badge {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e2e8f0;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.achievement-badge.unlocked {
+  border-color: var(--color, #3b82f6);
+  background: linear-gradient(135deg, white 0%, rgba(59, 130, 246, 0.05) 100%);
+}
+
+.achievement-badge.locked {
+  opacity: 0.6;
+  filter: grayscale(0.5);
+}
+
+.badge-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color, #3b82f6), var(--color, #3b82f6)dd);
+  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.achievement-badge.unlocked .badge-icon {
+  animation: pulse 2s infinite;
+}
+
+.badge-progress {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.badge-content {
+  flex: 1;
+}
+
+.badge-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin: 0 0 4px 0;
+}
+
+.badge-description {
+  color: #64748b;
+  margin: 0 0 8px 0;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.badge-progress-text {
+  font-size: 12px;
+  color: var(--color, #3b82f6);
+  font-weight: 500;
+  text-align: center;
+}
+
+.badge-glow {
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, var(--color, #3b82f6), transparent, var(--color, #3b82f6));
+  border-radius: 18px;
+  z-index: -1;
+  opacity: 0.3;
+  animation: rotate 3s linear infinite;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Skill Meter */
+.skill-meter {
+  padding: 16px;
+  background: white;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+}
+
+.skill-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.skill-name {
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.skill-level {
+  font-size: 14px;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.skill-bars {
+  display: flex;
+  gap: 4px;
+}
+
+.skill-bar {
+  flex: 1;
+  height: 8px;
+  background: #f1f5f9;
+  border-radius: 4px;
+  transition: all 0.5s ease;
+  animation-delay: var(--delay);
+}
+
+.skill-bar.filled {
+  background: linear-gradient(90deg, var(--color, #3b82f6), var(--color, #3b82f6)dd);
+  animation: fillBar 0.8s ease-out both;
+}
+
+@keyframes fillBar {
+  from {
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Study Streak */
+.study-streak {
+  padding: 24px;
+  background: linear-gradient(135deg, #fef3c7, #fde68a);
+  border-radius: 16px;
+  border: 1px solid #f59e0b;
+  position: relative;
+  overflow: hidden;
+}
+
+.streak-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.streak-icon {
+  width: 40px;
+  height: 40px;
+  background: #f59e0b;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: bounce 2s infinite;
+}
+
+.streak-info h3 {
+  margin: 0;
+  color: #92400e;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.streak-info p {
+  margin: 0;
+  color: #b45309;
+  font-size: 14px;
+}
+
+.streak-progress {
+  position: relative;
+}
+
+.streak-milestones {
+  position: relative;
+  height: 20px;
+  margin-top: 8px;
+}
+
+.milestone {
+  position: absolute;
+  top: 0;
+  transform: translateX(-50%);
+}
+
+.milestone-marker {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #d97706;
+  border: 2px solid white;
+  transition: all 0.3s ease;
+}
+
+.milestone.reached .milestone-marker {
+  background: #f59e0b;
+  transform: scale(1.2);
+  box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.3);
+}
+
+.milestone-label {
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px;
+  color: #b45309;
+  font-weight: 600;
+}
+
+@keyframes bounce {
+  0%, 20%, 53%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40%, 43% {
+    transform: translateY(-8px);
+  }
+  70% {
+    transform: translateY(-4px);
+  }
+  90% {
+    transform: translateY(-2px);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .achievement-badge {
+    padding: 16px;
+    gap: 12px;
+  }
+  
+  .badge-icon {
+    width: 48px;
+    height: 48px;
+  }
+  
+  .badge-title {
+    font-size: 1rem;
+  }
+  
+  .study-streak {
+    padding: 20px;
+  }
+  
+  .streak-icon {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .streak-info h3 {
+    font-size: 1.125rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .progress-indicators {
+    gap: 16px;
+  }
+  
+  .achievement-badge {
+    flex-direction: column;
+    text-align: center;
+    padding: 16px;
+  }
+  
+  .study-streak {
+    padding: 16px;
+  }
+  
+  .milestone-label {
+    font-size: 9px;
+  }
+}

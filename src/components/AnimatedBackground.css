@@ -1,0 +1,44 @@
+/* Animated Background Styles */
+.animated-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.background-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+}
+
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .background-canvas {
+    opacity: 0.1;
+  }
+  
+  .animated-background {
+    display: none;
+  }
+}
+
+/* Performance optimization for mobile */
+@media (max-width: 768px) {
+  .background-canvas {
+    opacity: 0.2;
+  }
+}
+
+@media (max-width: 480px) {
+  .background-canvas {
+    opacity: 0.1;
+  }
+}

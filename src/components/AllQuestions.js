@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { Search, BookOpen, CheckCircle, Circle, Filter } from 'lucide-react';
 import { studyCategories } from '../data/questionsData';
+import SearchSuggestions from './SearchSuggestions';
 import './AllQuestions.css';
 
 const AllQuestions = ({ completedQuestions, onMarkComplete, onMarkIncomplete }) => {
@@ -73,13 +74,9 @@ const AllQuestions = ({ completedQuestions, onMarkComplete, onMarkIncomplete }) 
 
       <div className="questions-filters">
         <div className="search-container">
-          <Search size={20} />
-          <input
-            type="text"
+          <SearchSuggestions 
+            onSearch={setSearchTerm}
             placeholder="Search questions and answers..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="search-input"
           />
         </div>
 

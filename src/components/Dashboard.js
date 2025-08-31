@@ -3,45 +3,62 @@ import { Link } from 'react-router-dom';
 import { BookOpen, Clock, Target, TrendingUp, Star, CheckCircle } from 'lucide-react';
 import { studyCategories } from '../data/questionsData';
 import { loadCompletedQuestions, loadUserProgress, saveUserProgress, updateStudyStreak } from '../utils/localStorage';
+import { CircularProgress, AchievementBadge, StudyStreak } from './ProgressIndicator';
+import { ProgressChart, StudyHeatmap } from './InteractiveChart';
+import { useNotification } from './NotificationSystem';
+import LoadingSpinner, { SkeletonList } from './LoadingSpinner';
 import './Dashboard.css';
 
 const Dashboard = ({ completedQuestions, bookmarkedQuestions, setCompletedQuestions }) => {
   const [userProgress, setUserProgress] = useState(null);
   const [studyStreak, setStudyStreak] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
+  const { addNotification } = useNotification();
   
   const totalQuestions = studyCategories.reduce((total, category) => total + category.questions.length, 0);
   const completedCount = completedQuestions.size;
   const progressPercentage = totalQuestions > 0 ? (completedCount / totalQuestions) * 100 : 0;
 
   useEffect(() => {
-    // Load progress from localStorage on component mount
-    const savedProgress = loadUserProgress();
-    const savedCompleted = loadCompletedQuestions();
-    
-    // Update completed questions if there are saved ones
-    if (savedCompleted.length > 0) {
-      setCompletedQuestions(new Set(savedCompleted));
-    }
-    
-    // Update study streak
-    const newStreak = updateStudyStreak();
-    setStudyStreak(newStreak);
-    
-    // Calculate and save current progress
-    const currentProgress = {
-      totalQuestions,
-      completedQuestions: savedCompleted.length,
-      progressPercentage: totalQuestions > 0 ? (savedCompleted.length / totalQuestions) * 100 : 0,
-      studyStreak: newStreak
+    // Simulate loading time for better UX
+    const loadData = async () => {
+      setIsLoading(true);
+      
+      // Load progress from localStorage on component mount
+      const savedProgress = loadUserProgress();
+      const savedCompleted = loadCompletedQuestions();
+      
+      // Update completed questions if there are saved ones
+      if (savedCompleted.length > 0) {
+        setCompletedQuestions(new Set(savedCompleted));
+      }
+      
+      // Update study streak
+      const newStreak = updateStudyStreak();
+      setStudyStreak(newStreak);
+      
+      // Calculate and save current progress
+      const currentProgress = {
+        totalQuestions,
+        completedQuestions: savedCompleted.length,
+        progressPercentage: totalQuestions > 0 ? (savedCompleted.length / totalQuestions) * 100 : 0,
+        studyStreak: newStreak
+      };
+      
+      saveUserProgress(currentProgress);
+      setUserProgress(currentProgress);
+      
+      
+      // Set loading to false immediately
+      setIsLoading(false);
     };
     
-    saveUserProgress(currentProgress);
-    setUserProgress(currentProgress);
-  }, [totalQuestions, setCompletedQuestions]);
+    loadData();
+  }, [totalQuestions, setCompletedQuestions, addNotification]);
 
   useEffect(() => {
     // Update progress whenever completed questions change
-    if (userProgress) {
+    if (userProgress && (userProgress.completedQuestions !== completedCount || userProgress.progressPercentage !== progressPercentage)) {
       const updatedProgress = {
         ...userProgress,
         completedQuestions: completedCount,
@@ -50,7 +67,7 @@ const Dashboard = ({ completedQuestions, bookmarkedQuestions, setCompletedQuesti
       saveUserProgress(updatedProgress);
       setUserProgress(updatedProgress);
     }
-  }, [completedCount, progressPercentage, userProgress]);
+  }, [completedCount, progressPercentage]);
 
   const getDifficultyColor = (difficulty) => {
     switch (difficulty) {
@@ -60,6 +77,72 @@ const Dashboard = ({ completedQuestions, bookmarkedQuestions, setCompletedQuesti
       default: return 'badge-beginner';
     }
   };
+
+  // Sample data for charts
+  const weeklyProgressData = [
+    { label: 'Mon', value: 5 },
+    { label: 'Tue', value: 8 },
+    { label: 'Wed', value: 12 },
+    { label: 'Thu', value: 7 },
+    { label: 'Fri', value: 15 },
+    { label: 'Sat', value: 10 },
+    { label: 'Sun', value: 6 }
+  ];
+
+  const categoryDistribution = studyCategories.map((category, index) => ({
+    label: category.title,
+    value: category.questions.filter(q => completedQuestions.has(q.id)).length,
+    color: `hsl(${index * 60}, 70%, 60%)`
+  })).filter(item => item.value > 0);
+
+  const studyActivityData = Array.from({ length: 30 }, (_, i) => {
+    const date = new Date();
+    date.setDate(date.getDate() - i);
+    return {
+      date: date.toISOString().split('T')[0],
+      count: Math.floor(Math.random() * 8)
+    };
+  });
+
+  const achievements = [
+    {
+      type: 'trophy',
+      title: 'First Steps',
+      description: 'Complete your first question',
+      unlocked: completedCount > 0,
+      progress: completedCount > 0 ? 100 : 0
+    },
+    {
+      type: 'star',
+      title: 'Getting Started',
+      description: 'Complete 10 questions',
+      unlocked: completedCount >= 10,
+      progress: Math.min((completedCount / 10) * 100, 100)
+    },
+    {
+      type: 'target',
+      title: 'Dedicated Learner',
+      description: 'Complete 50 questions',
+      unlocked: completedCount >= 50,
+      progress: Math.min((completedCount / 50) * 100, 100)
+    },
+    {
+      type: 'zap',
+      title: 'Speed Demon',
+      description: 'Maintain a 7-day streak',
+      unlocked: studyStreak >= 7,
+      progress: Math.min((studyStreak / 7) * 100, 100)
+    }
+  ];
+
+  if (isLoading) {
+    return (
+      <div className="dashboard">
+        <LoadingSpinner size="large" text="Loading your progress..." />
+        <SkeletonList count={3} />
+      </div>
+    );
+  }
 
   return (
     <div className="dashboard">
@@ -121,21 +204,66 @@ const Dashboard = ({ completedQuestions, bookmarkedQuestions, setCompletedQuesti
         </div>
       </div>
 
-      {/* Overall Progress */}
+      {/* Overall Progress with Circular Progress */}
       <div className="card">
         <div className="card-header">
           <h2 className="card-title">Overall Progress</h2>
         </div>
         <div className="progress-section">
-          <div className="progress-bar">
-            <div 
-              className="progress-fill" 
-              style={{ width: `${progressPercentage}%` }}
+          <div className="circular-progress-container">
+            <CircularProgress 
+              percentage={progressPercentage} 
+              size={150} 
+              strokeWidth={10} 
+              color="#3b82f6" 
             />
+            <div className="progress-details">
+              <h3>{completedCount} / {totalQuestions}</h3>
+              <p>Questions Completed</p>
+            </div>
           </div>
-          <div className="progress-text">
-            {completedCount} of {totalQuestions} questions completed
-          </div>
+        </div>
+      </div>
+
+      {/* Study Streak */}
+      <div className="card">
+        <StudyStreak days={studyStreak} maxStreak={30} />
+      </div>
+
+      {/* Interactive Charts */}
+      <div className="card">
+        <div className="card-header">
+          <h2 className="card-title">Progress Analytics</h2>
+        </div>
+        <div className="charts-container">
+          <ProgressChart data={weeklyProgressData} type="bar" />
+          {categoryDistribution.length > 0 && (
+            <ProgressChart data={categoryDistribution} type="pie" />
+          )}
+        </div>
+      </div>
+
+      {/* Study Activity Heatmap */}
+      <div className="card">
+        <StudyHeatmap data={studyActivityData} />
+      </div>
+
+      {/* Achievements */}
+      <div className="card">
+        <div className="card-header">
+          <h2 className="card-title">Achievements</h2>
+        </div>
+        <div className="achievements-grid">
+          {achievements.map((achievement, index) => (
+            <AchievementBadge
+              key={index}
+              type={achievement.type}
+              title={achievement.title}
+              description={achievement.description}
+              unlocked={achievement.unlocked}
+              progress={achievement.progress}
+            />
+          ))}
         </div>
       </div>
 
@@ -148,7 +276,7 @@ const Dashboard = ({ completedQuestions, bookmarkedQuestions, setCompletedQuesti
           </Link>
         </div>
         <div className="categories-grid">
-          {studyCategories.map(category => {
+          {studyCategories.map((category, index) => {
             const categoryCompleted = category.questions.filter(q => 
               completedQuestions.has(q.id)
             ).length;
@@ -159,6 +287,7 @@ const Dashboard = ({ completedQuestions, bookmarkedQuestions, setCompletedQuesti
                 key={category.id} 
                 to={`/category/${category.id}`} 
                 className="category-card"
+                style={{ '--index': index }}
               >
                 <div className="category-header">
                   <div className="category-icon">{category.icon}</div>
