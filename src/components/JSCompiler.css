@@ -1,0 +1,145 @@
+.js-compiler {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.compiler-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.compiler-header h2 {
+  margin: 0;
+  color: white;
+  font-size: 1.8rem;
+}
+
+.compiler-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.action-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 12px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-secondary);
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.action-btn:hover {
+  background: var(--bg-hover);
+  border-color: var(--primary-color);
+}
+
+.run-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.run-btn:hover:not(:disabled) {
+  background: var(--primary-hover);
+  transform: translateY(-1px);
+}
+
+.run-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.compiler-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  height: 600px;
+}
+
+.code-editor, .output-panel {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--bg-secondary);
+}
+
+.editor-header, .output-header {
+  padding: 12px 16px;
+  background: var(--bg-tertiary);
+  border-bottom: 1px solid var(--border-color);
+  font-weight: 600;
+  color: white;
+  font-size: 0.9rem;
+}
+
+.code-textarea {
+  flex: 1;
+  padding: 16px;
+  border: none;
+  outline: none;
+  background: var(--bg-primary);
+  color: white;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 14px;
+  line-height: 1.5;
+  resize: none;
+  tab-size: 2;
+}
+
+.code-textarea::placeholder {
+  color: var(--text-secondary);
+}
+
+.output-content {
+  flex: 1;
+  padding: 16px;
+  margin: 0;
+  background: var(--bg-primary);
+  color: white;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 14px;
+  line-height: 1.5;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+@media (max-width: 768px) {
+  .compiler-content {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+  
+  .code-editor, .output-panel {
+    height: 300px;
+  }
+  
+  .compiler-actions {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  
+  .action-btn, .run-btn {
+    padding: 6px 10px;
+    font-size: 0.9rem;
+  }
+}
