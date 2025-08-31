@@ -2,7 +2,7 @@
   "name": "js-interview-study-app",
   "version": "1.0.0",
   "private": true,
-  "homepage": "https://Bhushan1707.github.io/javascript-interview-questions-master",
+  "homepage": "https://bhushan1707.github.io/js-interview-study-app",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
