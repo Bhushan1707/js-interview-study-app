@@ -115,42 +115,44 @@ const Toast = ({ notification, onRemove }) => {
   );
 };
 
-// Utility functions for easy use
-export const showSuccess = (message, title) => {
+// Custom hooks for easy use
+export const useNotificationActions = () => {
   const { addNotification } = useNotification();
-  return addNotification({
-    type: 'success',
-    title,
-    message,
-  });
-};
+  
+  const showSuccess = (message, title) => {
+    return addNotification({
+      type: 'success',
+      title,
+      message,
+    });
+  };
 
-export const showError = (message, title) => {
-  const { addNotification } = useNotification();
-  return addNotification({
-    type: 'error',
-    title,
-    message,
-    duration: 7000,
-  });
-};
+  const showError = (message, title) => {
+    return addNotification({
+      type: 'error',
+      title,
+      message,
+      duration: 7000,
+    });
+  };
 
-export const showWarning = (message, title) => {
-  const { addNotification } = useNotification();
-  return addNotification({
-    type: 'warning',
-    title,
-    message,
-  });
-};
+  const showWarning = (message, title) => {
+    return addNotification({
+      type: 'warning',
+      title,
+      message,
+    });
+  };
 
-export const showInfo = (message, title) => {
-  const { addNotification } = useNotification();
-  return addNotification({
-    type: 'info',
-    title,
-    message,
-  });
+  const showInfo = (message, title) => {
+    return addNotification({
+      type: 'info',
+      title,
+      message,
+    });
+  };
+
+  return { showSuccess, showError, showWarning, showInfo };
 };
 
 export default NotificationProvider;
