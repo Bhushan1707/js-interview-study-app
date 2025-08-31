@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.css": "/javascript-interview-questions-master/static/css/main.578cbd0f.css",
-    "main.js": "/javascript-interview-questions-master/static/js/main.23e34193.js",
-    "index.html": "/javascript-interview-questions-master/index.html",
-    "main.578cbd0f.css.map": "/javascript-interview-questions-master/static/css/main.578cbd0f.css.map",
-    "main.23e34193.js.map": "/javascript-interview-questions-master/static/js/main.23e34193.js.map"
+    "main.css": "/js-interview-study-app/static/css/main.578cbd0f.css",
+    "main.js": "/js-interview-study-app/static/js/main.23e34193.js",
+    "index.html": "/js-interview-study-app/index.html",
+    "main.578cbd0f.css.map": "/js-interview-study-app/static/css/main.578cbd0f.css.map",
+    "main.23e34193.js.map": "/js-interview-study-app/static/js/main.23e34193.js.map"
   },
   "entrypoints": [
     "static/css/main.578cbd0f.css",
