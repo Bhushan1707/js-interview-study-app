@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/js-interview-study-app/static/css/main.e854fd0f.css",
-    "main.js": "/js-interview-study-app/static/js/main.cbed30ce.js",
+    "main.css": "/js-interview-study-app/static/css/main.a1dca25e.css",
+    "main.js": "/js-interview-study-app/static/js/main.55b5b296.js",
     "index.html": "/js-interview-study-app/index.html",
-    "main.e854fd0f.css.map": "/js-interview-study-app/static/css/main.e854fd0f.css.map",
-    "main.cbed30ce.js.map": "/js-interview-study-app/static/js/main.cbed30ce.js.map"
+    "main.a1dca25e.css.map": "/js-interview-study-app/static/css/main.a1dca25e.css.map",
+    "main.55b5b296.js.map": "/js-interview-study-app/static/js/main.55b5b296.js.map"
   },
   "entrypoints": [
-    "static/css/main.e854fd0f.css",
-    "static/js/main.cbed30ce.js"
+    "static/css/main.a1dca25e.css",
+    "static/js/main.55b5b296.js"
   ]
 }
