@@ -23,80 +23,107 @@ const DSAExam = () => {
     const questions = [
       {
         id: 1,
-        title: `Basic ${pattern.name} Implementation`,
-        description: `Implement a basic solution using the ${pattern.name} pattern.`,
-        problem: pattern.sample_problem,
+        title: `Two Sum - Sorted Array`,
+        description: `Given a 1-indexed array of integers numbers that is already sorted in non-decreasing order, find two numbers such that they add up to a specific target number.`,
+        problem: `Return the indices of the two numbers (1-indexed) as an integer array [index1, index2] of length 2.`,
         difficulty: 'Easy',
         timeLimit: 10,
-        testCases: [
+        examples: [
           {
-            input: pattern.example?.input || 'nums = [1, 2, 3, 4, 5]',
-            expectedOutput: pattern.example?.output || '15',
-            description: 'Basic test case'
+            input: "numbers = [2,7,11,15], target = 9",
+            output: "[1,2]",
+            explanation: "The sum of 2 and 7 is 9. Therefore, index1 = 1, index2 = 2. We return [1, 2]."
+          },
+          {
+            input: "numbers = [2,3,4], target = 6",
+            output: "[1,3]",
+            explanation: "The sum of 2 and 4 is 6. Therefore, index1 = 1, index2 = 3. We return [1, 3]."
           }
         ],
-        starterCode: `// Implement ${pattern.name} pattern
-function solve(input) {
-    // Your code here
-    return result;
-}
-
-// Test your solution
-console.log(solve(${pattern.example?.input || '[1, 2, 3, 4, 5]'}));`
+        testCases: [
+          { input: "[2,7,11,15], 9", expected: "[1,2]" },
+          { input: "[2,3,4], 6", expected: "[1,3]" },
+          { input: "[-1,0], -1", expected: "[1,2]" },
+          { input: "[1,2,3,4,4,9,56,90], 8", expected: "[4,5]" }
+        ],
+        functionName: "twoSum",
+        parameters: ["numbers", "target"],
+        starterCode: `function twoSum(numbers, target) {
+    // Write your solution here
+    // Use two pointers approach
+    
+}`
       },
       {
         id: 2,
-        title: `Advanced ${pattern.name} Problem`,
-        description: `Solve a more complex problem using the ${pattern.name} pattern with edge cases.`,
-        problem: `Given a more complex scenario, optimize your ${pattern.name} solution for better performance.`,
-        difficulty: 'Medium',
-        timeLimit: 15,
-        testCases: [
+        title: `Valid Palindrome`,
+        description: `A phrase is a palindrome if, after converting all uppercase letters into lowercase letters and removing all non-alphanumeric characters, it reads the same forward and backward.`,
+        problem: `Given a string s, return true if it is a palindrome, or false otherwise.`,
+        difficulty: 'Easy',
+        timeLimit: 8,
+        examples: [
           {
-            input: 'Complex input case',
-            expectedOutput: 'Expected complex output',
-            description: 'Advanced test case with edge conditions'
+            input: 's = "A man, a plan, a canal: Panama"',
+            output: 'true',
+            explanation: '"amanaplanacanalpanama" is a palindrome.'
+          },
+          {
+            input: 's = "race a car"',
+            output: 'false',
+            explanation: '"raceacar" is not a palindrome.'
+          },
+          {
+            input: 's = " "',
+            output: 'true',
+            explanation: 's is an empty string "" after removing non-alphanumeric characters. Since an empty string reads the same forward and backward, it is a palindrome.'
           }
         ],
-        starterCode: `// Advanced ${pattern.name} implementation
-function advancedSolve(input) {
-    // Handle edge cases
-    if (!input || input.length === 0) return null;
+        testCases: [
+          { input: '"A man, a plan, a canal: Panama"', expected: 'true' },
+          { input: '"race a car"', expected: 'false' },
+          { input: '" "', expected: 'true' },
+          { input: '"Madam"', expected: 'true' }
+        ],
+        functionName: "isPalindrome",
+        parameters: ["s"],
+        starterCode: `function isPalindrome(s) {
+    // Write your solution here
+    // Use two pointers approach
     
-    // Your optimized code here
-    return result;
-}
-
-// Test with edge cases
-console.log(advancedSolve([]));
-console.log(advancedSolve([1]));`
+}`
       },
       {
         id: 3,
-        title: `${pattern.name} Optimization Challenge`,
-        description: `Optimize your solution for time and space complexity.`,
-        problem: `Implement the most efficient version of ${pattern.name} pattern with optimal time/space complexity.`,
-        difficulty: 'Hard',
-        timeLimit: 20,
-        testCases: [
+        title: `Container With Most Water`,
+        description: `You are given an integer array height of length n. There are n vertical lines drawn such that the two endpoints of the ith line are (i, 0) and (i, height[i]).`,
+        problem: `Find two lines that together with the x-axis form a container, such that the container contains the most water. Return the maximum amount of water a container can store.`,
+        difficulty: 'Medium',
+        timeLimit: 15,
+        examples: [
           {
-            input: 'Large dataset',
-            expectedOutput: 'Optimized result',
-            description: 'Performance test with large input'
+            input: 'height = [1,8,6,2,5,4,8,3,7]',
+            output: '49',
+            explanation: 'The above vertical lines are represented by array [1,8,6,2,5,4,8,3,7]. In this case, the max area of water (blue section) the container can contain is 49.'
+          },
+          {
+            input: 'height = [1,1]',
+            output: '1',
+            explanation: 'The maximum area is 1.'
           }
         ],
-        starterCode: `// Optimized ${pattern.name} solution
-// Target: O(n) time, O(1) space complexity
-function optimizedSolve(input) {
-    // Write your most efficient solution
-    return result;
-}
-
-// Performance test
-const largeInput = new Array(10000).fill(0).map((_, i) => i);
-console.time('Performance Test');
-console.log(optimizedSolve(largeInput));
-console.timeEnd('Performance Test');`
+        testCases: [
+          { input: '[1,8,6,2,5,4,8,3,7]', expected: '49' },
+          { input: '[1,1]', expected: '1' },
+          { input: '[4,3,2,1,4]', expected: '16' },
+          { input: '[1,2,1]', expected: '2' }
+        ],
+        functionName: "maxArea",
+        parameters: ["height"],
+        starterCode: `function maxArea(height) {
+    // Write your solution here
+    // Use two pointers approach for optimal O(n) solution
+    
+}`
       }
     ];
 
@@ -126,8 +153,7 @@ console.timeEnd('Performance Test');`
   }, [timeLeft, examStarted, examCompleted]);
 
   const finishExam = useCallback(() => {
-    setIsExamFinished(true);
-    setShowResults(true);
+    setExamCompleted(true);
   }, []);
 
   useEffect(() => {
@@ -406,6 +432,9 @@ console.timeEnd('Performance Test');`
           <JSCompiler 
             initialCode={userCode}
             onCodeChange={setUserCode}
+            testCases={currentQuestion?.testCases || []}
+            functionName={currentQuestion?.functionName || ''}
+            showTestResults={true}
           />
         </div>
       </div>

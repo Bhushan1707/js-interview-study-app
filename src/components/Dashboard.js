@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { BookOpen, Clock, Target, TrendingUp, Star, CheckCircle } from 'lucide-react';
-import { studyCategories } from '../data/questionsData';
+import { CheckCircle, Clock, Target, TrendingUp, Book, Code, Brain, Award, ArrowRight, Star, BookOpen } from 'lucide-react';
+import questionsData, { studyCategories } from '../data/questionsData';
+import dsaPatternsData from '../data/dsaPatternsData';
 import { loadCompletedQuestions, loadUserProgress, saveUserProgress, updateStudyStreak } from '../utils/localStorage';
 import { CircularProgress, AchievementBadge, StudyStreak } from './ProgressIndicator';
 import { ProgressChart, StudyHeatmap } from './InteractiveChart';
@@ -279,7 +280,7 @@ const Dashboard = ({ completedQuestions, bookmarkedQuestions, setCompletedQuesti
         <div className="dsa-patterns-preview">
           <div className="dsa-stats">
             <div className="dsa-stat">
-              <div className="stat-number">15</div>
+              <div className="stat-number">{dsaPatternsData.dsa_patterns.length}</div>
               <div className="stat-label">Essential Patterns</div>
             </div>
             <div className="dsa-stat">
@@ -291,10 +292,24 @@ const Dashboard = ({ completedQuestions, bookmarkedQuestions, setCompletedQuesti
               <div className="stat-label">Practice Problems</div>
             </div>
           </div>
-          <p className="dsa-description">
-            Master the fundamental algorithms and data structure patterns that appear in 90% of coding interviews.
-            From Two Pointers to Dynamic Programming - build your problem-solving foundation.
-          </p>
+          
+          <div className="patterns-grid">
+            {dsaPatternsData.dsa_patterns.map((pattern, index) => (
+              <Link 
+                key={pattern.id} 
+                to={`/dsa-pattern/${pattern.id}`} 
+                className="pattern-item"
+              >
+                <div className="pattern-number">{index + 1}</div>
+                <div className="pattern-content">
+                  <h4 className="pattern-title">{pattern.name}</h4>
+                  <p className="pattern-description">{pattern.description}</p>
+                </div>
+                <ArrowRight size={16} className="pattern-arrow" />
+              </Link>
+            ))}
+          </div>
+          
           <div className="dsa-features">
             <div className="feature-item">
               <span className="feature-icon">🎯</span>

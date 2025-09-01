@@ -1,9 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Play, RotateCcw, Copy, Download } from 'lucide-react';
+import { Play, RotateCcw, Copy, Download, CheckCircle, XCircle } from 'lucide-react';
 import './JSCompiler.css';
 
-const JSCompiler = () => {
-  const [code, setCode] = useState(`// Welcome to the JavaScript Compiler!
+const JSCompiler = ({ initialCode = '', onCodeChange, testCases = [], functionName = '', showTestResults = false }) => {
+  const [code, setCode] = useState(initialCode || `// Welcome to the JavaScript Compiler!
 // Write your JavaScript code here and click Run to execute it.
 
 console.log("Hello, World!");
@@ -23,11 +23,13 @@ console.log("Doubled numbers:", doubled);`);
   
   const [output, setOutput] = useState('');
   const [isRunning, setIsRunning] = useState(false);
+  const [testResults, setTestResults] = useState([]);
   const textareaRef = useRef(null);
 
   const runCode = () => {
     setIsRunning(true);
     setOutput('');
+    setTestResults([]);
     
     // Capture console output
     const originalLog = console.log;
@@ -61,6 +63,11 @@ console.log("Doubled numbers:", doubled);`);
       const func = new Function(code);
       func();
       
+      // Run test cases if provided
+      if (testCases.length > 0 && functionName) {
+        runTestCases();
+      }
+      
       if (capturedOutput.trim() === '') {
         capturedOutput = 'Code executed successfully (no output)';
       }
@@ -77,10 +84,93 @@ console.log("Doubled numbers:", doubled);`);
     }
   };
 
+  const runTestCases = () => {
+    const results = [];
+    
+    try {
+      // Execute the user's code to define the function
+      const func = new Function(code);
+      func();
+      
+      // Get the function from the global scope
+      const userFunction = eval(functionName);
+      
+      if (typeof userFunction !== 'function') {
+        setTestResults([{ error: `Function '${functionName}' not found or not a function` }]);
+        return;
+      }
+      
+      testCases.forEach((testCase, index) => {
+        try {
+          // Parse the input - handle different input formats
+          let args;
+          if (testCase.input.startsWith('[') || testCase.input.startsWith('{')) {
+            // Array or object input
+            args = [JSON.parse(testCase.input)];
+          } else if (testCase.input.includes(',')) {
+            // Multiple arguments
+            args = testCase.input.split(',').map(arg => {
+              arg = arg.trim();
+              if (arg.startsWith('"') && arg.endsWith('"')) {
+                return arg.slice(1, -1); // Remove quotes for strings
+              }
+              if (arg.startsWith('[') || arg.startsWith('{')) {
+                return JSON.parse(arg);
+              }
+              return isNaN(arg) ? arg : Number(arg);
+            });
+          } else {
+            // Single argument
+            let arg = testCase.input.trim();
+            if (arg.startsWith('"') && arg.endsWith('"')) {
+              args = [arg.slice(1, -1)];
+            } else if (arg.startsWith('[') || arg.startsWith('{')) {
+              args = [JSON.parse(arg)];
+            } else {
+              args = [isNaN(arg) ? arg : Number(arg)];
+            }
+          }
+          
+          const result = userFunction(...args);
+          const resultStr = typeof result === 'object' ? JSON.stringify(result) : String(result);
+          const expectedStr = testCase.expected;
+          
+          results.push({
+            index: index + 1,
+            input: testCase.input,
+            expected: expectedStr,
+            actual: resultStr,
+            passed: resultStr === expectedStr
+          });
+        } catch (error) {
+          results.push({
+            index: index + 1,
+            input: testCase.input,
+            expected: testCase.expected,
+            actual: `Error: ${error.message}`,
+            passed: false
+          });
+        }
+      });
+      
+      setTestResults(results);
+    } catch (error) {
+      setTestResults([{ error: `Failed to run test cases: ${error.message}` }]);
+    }
+  };
+
   const clearCode = () => {
     setCode('');
     setOutput('');
+    setTestResults([]);
   };
+
+  // Update code when initialCode prop changes
+  useEffect(() => {
+    if (initialCode && initialCode !== code) {
+      setCode(initialCode);
+    }
+  }, [initialCode]);
 
   const copyCode = () => {
     navigator.clipboard.writeText(code);
@@ -143,7 +233,12 @@ console.log("Doubled numbers:", doubled);`);
           <textarea
             ref={textareaRef}
             value={code}
-            onChange={(e) => setCode(e.target.value)}
+            onChange={(e) => {
+              setCode(e.target.value);
+              if (onCodeChange) {
+                onCodeChange(e.target.value);
+              }
+            }}
             onKeyDown={handleKeyDown}
             className="code-textarea"
             placeholder="Write your JavaScript code here..."
@@ -158,6 +253,40 @@ console.log("Doubled numbers:", doubled);`);
           <pre className="output-content">
             {output || 'Click "Run Code" to see output here...'}
           </pre>
+          
+          {testResults.length > 0 && (
+            <div className="test-results">
+              <div className="test-results-header">
+                <span>Test Results</span>
+                <span className="test-summary">
+                  {testResults.filter(r => r.passed).length}/{testResults.length} passed
+                </span>
+              </div>
+              <div className="test-cases">
+                {testResults.map((result, index) => (
+                  result.error ? (
+                    <div key={index} className="test-case error">
+                      <XCircle size={16} color="#ef4444" />
+                      <span>{result.error}</span>
+                    </div>
+                  ) : (
+                    <div key={index} className={`test-case ${result.passed ? 'passed' : 'failed'}`}>
+                      {result.passed ? (
+                        <CheckCircle size={16} color="#10b981" />
+                      ) : (
+                        <XCircle size={16} color="#ef4444" />
+                      )}
+                      <div className="test-details">
+                        <div className="test-input">Input: {result.input}</div>
+                        <div className="test-expected">Expected: {result.expected}</div>
+                        <div className="test-actual">Actual: {result.actual}</div>
+                      </div>
+                    </div>
+                  )
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

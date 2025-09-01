@@ -1,6 +1,6 @@
 .js-compiler {
   max-width: 1200px;
-  margin: 0 auto;
+  /* margin: 0 auto; */
   padding: 20px;
   background: #1e1e1e;
   min-height: 100vh;
@@ -83,6 +83,7 @@
   border-radius: 8px;
   overflow: hidden;
   background: #2d2d2d;
+  overflow-y: auto;
 }
 
 .editor-header, .output-header {
@@ -124,6 +125,84 @@
   overflow-y: auto;
   white-space: pre-wrap;
   word-wrap: break-word;
+}
+
+.test-results {
+  margin-top: 16px;
+  border-top: 1px solid #404040;
+  padding-top: 16px;
+}
+
+.test-results-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.test-summary {
+  font-size: 0.9rem;
+  color: #888888;
+}
+
+.test-cases {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.test-case {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 8px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+}
+
+.test-case.passed {
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.test-case.failed {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.test-case.error {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  align-items: center;
+}
+
+.test-details {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+
+.test-input, .test-expected, .test-actual {
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+}
+
+.test-input {
+  color: #ffffff;
+}
+
+.test-expected {
+  color: #10b981;
+}
+
+.test-actual {
+  color: #ef4444;
+}
+
+.test-case.passed .test-actual {
+  color: #10b981;
 }
 
 @media (max-width: 768px) {

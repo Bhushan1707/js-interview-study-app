@@ -16,6 +16,7 @@ import DSAPatternDetail from './components/DSAPatternDetail';
 import DSAExam from './components/DSAExam';
 import FloatingActionButton from './components/FloatingActionButton';
 import AnimatedBackground from './components/AnimatedBackground';
+import ScrollToTop from './components/ScrollToTop';
 import { NotificationProvider } from './components/NotificationSystem';
 import { 
   initializeDefaultUser, 
@@ -75,6 +76,7 @@ function App() {
   return (
     <NotificationProvider>
       <Router>
+        <ScrollToTop />
         <div className="app">
           <AnimatedBackground variant="particles" />
           <Header toggleSidebar={toggleSidebar} />
