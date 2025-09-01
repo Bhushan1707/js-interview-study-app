@@ -35,18 +35,19 @@ const StudyCategory = ({ completedQuestions, bookmarkedQuestions, onMarkComplete
   return (
     <div className="study-category">
       <div className="category-header">
-        <Link to="/" className="back-link">
-          <ArrowLeft size={16} />
-          Back to Dashboard
-        </Link>
-        
         <div className="category-info">
-          <div className="category-title-section">
-            <div className="category-icon-large">{category.icon}</div>
-            <div>
-              <h1>{category.title}</h1>
-              <p>{category.description}</p>
+          <div className="category-card-header">
+            <div className="category-title-section">
+              <div className="category-icon-large">{category.icon}</div>
+              <div>
+                <h1>{category.title}</h1>
+                <p>{category.description}</p>
+              </div>
             </div>
+            <Link to="/" className="back-link-card">
+              <ArrowLeft size={16} />
+              Back to Dashboard
+            </Link>
           </div>
           
           <div className="category-meta-section">
@@ -66,20 +67,24 @@ const StudyCategory = ({ completedQuestions, bookmarkedQuestions, onMarkComplete
       </div>
 
       <div className="progress-card">
-        <div className="progress-info">
-          <h3>Progress</h3>
-          <span className="progress-text">
-            {completedCount} of {category.questions.length} completed
-          </span>
+        <div className="progress-header">
+          <div className="progress-info">
+            <h3>Progress</h3>
+            <span className="progress-text">
+              {completedCount} of {category.questions.length} completed
+            </span>
+          </div>
+          <div className="progress-percentage">
+            {Math.round(progressPercentage)}%
+          </div>
         </div>
-        <div className="progress-bar">
-          <div 
-            className="progress-fill" 
-            style={{ width: `${progressPercentage}%` }}
-          />
-        </div>
-        <div className="progress-percentage">
-          {Math.round(progressPercentage)}%
+        <div className="progress-bar-container">
+          <div className="progress-bar">
+            <div 
+              className="progress-fill" 
+              style={{ width: `${progressPercentage}%` }}
+            />
+          </div>
         </div>
       </div>
 

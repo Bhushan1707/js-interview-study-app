@@ -60,7 +60,30 @@ const VoiceExam = ({ completedQuestions }) => {
     }
 
     speechRecognition.onSpeechResult((result) => {
-      setCurrentAnswer(result.final);
+      // Append new speech to existing answer instead of replacing
+      setCurrentAnswer(prev => {
+        let newFinal = result.final.trim();
+        
+        // Fix common punctuation issues
+        newFinal = newFinal
+          .replace(/\bdot\b/gi, '.')
+          .replace(/\bcomma\b/gi, ',')
+          .replace(/\bquestion mark\b/gi, '?')
+          .replace(/\bexclamation mark\b/gi, '!')
+          .replace(/\bopen bracket\b/gi, '(')
+          .replace(/\bclose bracket\b/gi, ')')
+          .replace(/\bopen parenthesis\b/gi, '(')
+          .replace(/\bclose parenthesis\b/gi, ')')
+          .replace(/\bsemicolon\b/gi, ';')
+          .replace(/\bcolon\b/gi, ':');
+        
+        if (newFinal && prev) {
+          return prev + ' ' + newFinal;
+        } else if (newFinal) {
+          return newFinal;
+        }
+        return prev;
+      });
       setInterimTranscript(result.interim);
     });
 
@@ -138,7 +161,7 @@ const VoiceExam = ({ completedQuestions }) => {
     
     try {
       speechRecognition.startListening();
-      setCurrentAnswer('');
+      // Don't clear existing answer - allow continuous recording
       setInterimTranscript('');
     } catch (error) {
       alert('Error starting speech recognition: ' + error.message);
@@ -507,11 +530,18 @@ const VoiceExam = ({ completedQuestions }) => {
 
           <div className="answer-display">
             <h3>Your Answer:</h3>
-            <div className="answer-text">
-              {currentAnswer && <span className="final-text">{currentAnswer}</span>}
-              {interimTranscript && <span className="interim-text">{interimTranscript}</span>}
-              {!currentAnswer && !interimTranscript && (
-                <span className="placeholder">Click the microphone and start speaking...</span>
+            <div className="answer-input-container">
+              <textarea
+                className="answer-textarea"
+                value={currentAnswer}
+                onChange={(e) => setCurrentAnswer(e.target.value)}
+                placeholder="Click the microphone and start speaking, or type your answer here..."
+                rows={6}
+              />
+              {interimTranscript && (
+                <div className="interim-overlay">
+                  <span className="interim-text">{interimTranscript}</span>
+                </div>
               )}
             </div>
           </div>

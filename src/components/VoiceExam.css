@@ -363,6 +363,53 @@
   font-size: 1rem;
 }
 
+.answer-input-container {
+  position: relative;
+}
+
+.answer-textarea {
+  width: 100%;
+  min-height: 120px;
+  padding: 15px;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #1e293b;
+  background: white;
+  resize: vertical;
+  font-family: inherit;
+  transition: border-color 0.2s;
+}
+
+.answer-textarea:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.answer-textarea::placeholder {
+  color: #94a3b8;
+  font-style: italic;
+}
+
+.interim-overlay {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  background: rgba(59, 130, 246, 0.1);
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  pointer-events: none;
+}
+
+.interim-text {
+  color: #3b82f6;
+  font-style: italic;
+  font-size: 0.9rem;
+}
+
 .answer-text {
   min-height: 100px;
   color: #1e293b;
@@ -372,11 +419,6 @@
 
 .final-text {
   color: #1e293b;
-}
-
-.interim-text {
-  color: #64748b;
-  font-style: italic;
 }
 
 .placeholder {
