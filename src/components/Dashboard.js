@@ -14,7 +14,7 @@ const Dashboard = ({ completedQuestions, bookmarkedQuestions, setCompletedQuesti
   const [studyStreak, setStudyStreak] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const { addNotification } = useNotification();
-  
+
   const totalQuestions = studyCategories.reduce((total, category) => total + category.questions.length, 0);
   const completedCount = completedQuestions.size;
   const progressPercentage = totalQuestions > 0 ? (completedCount / totalQuestions) * 100 : 0;
@@ -23,20 +23,20 @@ const Dashboard = ({ completedQuestions, bookmarkedQuestions, setCompletedQuesti
     // Simulate loading time for better UX
     const loadData = async () => {
       setIsLoading(true);
-      
+
       // Load progress from localStorage on component mount
       const savedProgress = loadUserProgress();
       const savedCompleted = loadCompletedQuestions();
-      
+
       // Update completed questions if there are saved ones
       if (savedCompleted.length > 0) {
         setCompletedQuestions(new Set(savedCompleted));
       }
-      
+
       // Update study streak
       const newStreak = updateStudyStreak();
       setStudyStreak(newStreak);
-      
+
       // Calculate and save current progress
       const currentProgress = {
         totalQuestions,
@@ -44,15 +44,15 @@ const Dashboard = ({ completedQuestions, bookmarkedQuestions, setCompletedQuesti
         progressPercentage: totalQuestions > 0 ? (savedCompleted.length / totalQuestions) * 100 : 0,
         studyStreak: newStreak
       };
-      
+
       saveUserProgress(currentProgress);
       setUserProgress(currentProgress);
-      
-      
+
+
       // Set loading to false immediately
       setIsLoading(false);
     };
-    
+
     loadData();
   }, [totalQuestions, setCompletedQuestions, addNotification]);
 
@@ -162,7 +162,7 @@ const Dashboard = ({ completedQuestions, bookmarkedQuestions, setCompletedQuesti
             <p>Total Questions</p>
           </div>
         </Link>
-        
+
         <div className="stat-card">
           <div className="stat-icon completed">
             <CheckCircle size={24} />
@@ -172,7 +172,7 @@ const Dashboard = ({ completedQuestions, bookmarkedQuestions, setCompletedQuesti
             <p>Completed</p>
           </div>
         </div>
-        
+
         <div className="stat-card">
           <div className="stat-icon bookmarked">
             <Star size={24} />
@@ -182,7 +182,7 @@ const Dashboard = ({ completedQuestions, bookmarkedQuestions, setCompletedQuesti
             <p>Bookmarked</p>
           </div>
         </div>
-        
+
         <div className="stat-card">
           <div className="stat-icon progress">
             <TrendingUp size={24} />
@@ -192,7 +192,7 @@ const Dashboard = ({ completedQuestions, bookmarkedQuestions, setCompletedQuesti
             <p>Progress</p>
           </div>
         </div>
-        
+
         <div className="stat-card">
           <div className="stat-icon streak">
             <Clock size={24} />
@@ -211,11 +211,11 @@ const Dashboard = ({ completedQuestions, bookmarkedQuestions, setCompletedQuesti
         </div>
         <div className="progress-section">
           <div className="circular-progress-container">
-            <CircularProgress 
-              percentage={progressPercentage} 
-              size={150} 
-              strokeWidth={10} 
-              color="#3b82f6" 
+            <CircularProgress
+              percentage={progressPercentage}
+              size={150}
+              strokeWidth={10}
+              color="#3b82f6"
             />
             <div className="progress-details">
               <h3>{completedCount} / {totalQuestions}</h3>
@@ -267,25 +267,79 @@ const Dashboard = ({ completedQuestions, bookmarkedQuestions, setCompletedQuesti
         </div>
       </div>
 
-      {/* Study Categories */}
+      {/* DSA Patterns */}
       <div className="card">
         <div className="card-header">
+          <h2 className="card-title">DSA Patterns Mastery</h2>
+          <br />
+          <Link to="/dsa-patterns" className="btn btn-primary">
+            Explore Patterns
+          </Link>
+        </div>
+        <div className="dsa-patterns-preview">
+          <div className="dsa-stats">
+            <div className="dsa-stat">
+              <div className="stat-number">15</div>
+              <div className="stat-label">Essential Patterns</div>
+            </div>
+            <div className="dsa-stat">
+              <div className="stat-number">90%</div>
+              <div className="stat-label">Interview Coverage</div>
+            </div>
+            <div className="dsa-stat">
+              <div className="stat-number">100+</div>
+              <div className="stat-label">Practice Problems</div>
+            </div>
+          </div>
+          <p className="dsa-description">
+            Master the fundamental algorithms and data structure patterns that appear in 90% of coding interviews.
+            From Two Pointers to Dynamic Programming - build your problem-solving foundation.
+          </p>
+          <div className="dsa-features">
+            <div className="feature-item">
+              <span className="feature-icon">🎯</span>
+              <span>Pattern Recognition</span>
+            </div>
+            <div className="feature-item">
+              <span className="feature-icon">💻</span>
+              <span>Live Code Editor</span>
+            </div>
+            <div className="feature-item">
+              <span className="feature-icon">📊</span>
+              <span>Visual Examples</span>
+            </div>
+            <div className="feature-item">
+              <span className="feature-icon">🏆</span>
+              <span>Pattern Exams</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Study Categories */}
+      <div className="card">
+        <div className="card-header row">
+          <h2 className="card-title col-8">Study Categories</h2>
+          <br />
+          <Link to="/study-plan" className="btn btn-outline col-4">View Study Plan</Link>
+        </div>
+        {/* <div className="card-header">
           <h2 className="card-title">Study Categories</h2>
           <Link to="/study-plan" className="btn btn-outline">
             View Study Plan
           </Link>
-        </div>
+        </div> */}
         <div className="categories-grid">
           {studyCategories.map((category, index) => {
-            const categoryCompleted = category.questions.filter(q => 
+            const categoryCompleted = category.questions.filter(q =>
               completedQuestions.has(q.id)
             ).length;
             const categoryProgress = (categoryCompleted / category.questions.length) * 100;
 
             return (
-              <Link 
-                key={category.id} 
-                to={`/category/${category.id}`} 
+              <Link
+                key={category.id}
+                to={`/category/${category.id}`}
                 className="category-card"
                 style={{ '--index': index }}
               >
@@ -309,8 +363,8 @@ const Dashboard = ({ completedQuestions, bookmarkedQuestions, setCompletedQuesti
                 </div>
                 <div className="category-progress">
                   <div className="progress-bar small">
-                    <div 
-                      className="progress-fill" 
+                    <div
+                      className="progress-fill"
                       style={{ width: `${categoryProgress}%` }}
                     />
                   </div>

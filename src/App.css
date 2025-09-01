@@ -77,10 +77,14 @@ body {
 }
 
 .card-header {
-  display: flex;
+  align-items: center;
+    display: grid;
+    /* justify-content: space-between; */
+    margin-bottom: 16px;
+  /* display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 16px;
+  margin-bottom: 16px; */
 }
 
 .card-title {
@@ -88,6 +92,7 @@ body {
   font-weight: 600;
   color: #1e293b;
   margin: 0;
+  text-align: center;
 }
 
 .card-content {

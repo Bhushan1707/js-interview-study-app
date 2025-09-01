@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { X, Home, BookOpen, TrendingUp, Code, Target, Users, User, Award } from 'lucide-react';
+import { X, Home, BookOpen, TrendingUp, Code, Target, Users, User, Award, Brain } from 'lucide-react';
 import { studyCategories } from '../data/questionsData';
 import './Sidebar.css';
 
@@ -75,6 +75,18 @@ const Sidebar = ({ isOpen, onClose }) => {
           </Link>
           
           <Link 
+            to="/dsa-patterns" 
+            className={`nav-item ${location.pathname === '/dsa-patterns' ? 'active' : ''}`}
+            onClick={onClose}
+          >
+            <Brain size={20} />
+            <div className="nav-item-content">
+              <span className="nav-item-title">DSA Patterns</span>
+              <span className="nav-item-subtitle">15 patterns</span>
+            </div>
+          </Link>
+          
+          <Link 
             to="/profile" 
             className={`nav-item ${location.pathname === '/profile' ? 'active' : ''}`}
             onClick={onClose}
@@ -89,7 +101,7 @@ const Sidebar = ({ isOpen, onClose }) => {
           <div className="nav-divider" />
           
           <div className="nav-section">
-            <h3>Categories</h3>
+            <h3>JavaScript Categories</h3>
             {studyCategories.map(category => {
               const IconComponent = categoryIcons[category.id] || Code;
               return (

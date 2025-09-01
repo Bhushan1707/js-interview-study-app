@@ -52,20 +52,20 @@ code {
   margin-bottom: 24px;
 }
 
-.card-header {
+/* .card-header {
   padding: 20px 24px;
   border-bottom: 1px solid #e2e8f0;
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
+} */
 
-.card-title {
+/* .card-title {
   font-size: 1.25rem;
   font-weight: 600;
   color: #1e293b;
   margin: 0;
-}
+} */
 
 .card-content {
   padding: 24px;

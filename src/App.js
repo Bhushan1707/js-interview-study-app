@@ -11,6 +11,9 @@ import JSCompiler from './components/JSCompiler';
 import Exam from './components/Exam';
 import VoiceExam from './components/VoiceExam';
 import QuestionDetail from './components/QuestionDetail';
+import DSAPatterns from './components/DSAPatterns';
+import DSAPatternDetail from './components/DSAPatternDetail';
+import DSAExam from './components/DSAExam';
 import FloatingActionButton from './components/FloatingActionButton';
 import AnimatedBackground from './components/AnimatedBackground';
 import { NotificationProvider } from './components/NotificationSystem';
@@ -134,6 +137,9 @@ function App() {
                   onToggleBookmark={handleToggleBookmark}
                 />
               } />
+              <Route path="/dsa-patterns" element={<DSAPatterns />} />
+              <Route path="/dsa-pattern/:patternId" element={<DSAPatternDetail />} />
+              <Route path="/dsa-exam/:patternId" element={<DSAExam />} />
             </Routes>
           </main>
           <FloatingActionButton />
