@@ -27,6 +27,7 @@
   transition: all 0.2s ease;
   font-size: 14px;
   white-space: nowrap;
+  margin-bottom: 10px;
 }
 
 .back-link-card:hover {

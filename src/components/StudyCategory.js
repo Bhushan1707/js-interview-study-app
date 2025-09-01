@@ -34,20 +34,24 @@ const StudyCategory = ({ completedQuestions, bookmarkedQuestions, onMarkComplete
 
   return (
     <div className="study-category">
+       <Link to="/" className="back-link-card">
+              <ArrowLeft size={16} />
+              Back to Dashboard
+            </Link>
+            <br/>
       <div className="category-header">
         <div className="category-info">
           <div className="category-card-header">
+            
             <div className="category-title-section">
               <div className="category-icon-large">{category.icon}</div>
               <div>
+                
                 <h1>{category.title}</h1>
                 <p>{category.description}</p>
               </div>
             </div>
-            <Link to="/" className="back-link-card">
-              <ArrowLeft size={16} />
-              Back to Dashboard
-            </Link>
+           
           </div>
           
           <div className="category-meta-section">
