@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { CheckCircle, Clock, Target, TrendingUp, Book, Code, Brain, Award, ArrowRight, Star, BookOpen } from 'lucide-react';
+import { CheckCircle, Clock, Target, TrendingUp, Book, Code, Brain, Award, ArrowRight, Star, BookOpen, Bot, Mic } from 'lucide-react';
 import questionsData, { studyCategories } from '../data/questionsData';
 import dsaPatternsData from '../data/dsaPatternsData';
 import { loadCompletedQuestions, loadUserProgress, saveUserProgress, updateStudyStreak } from '../utils/localStorage';
@@ -418,6 +418,16 @@ const Dashboard = ({ completedQuestions, bookmarkedQuestions, setCompletedQuesti
             <Target size={32} />
             <h3>JS Compiler</h3>
             <p>Test and run JavaScript code</p>
+          </Link>
+          <Link to="/ai-interview/core-concepts" className="action-card ai-interview">
+            <Bot size={32} />
+            <h3>AI Interview</h3>
+            <p>Practice with AI-powered feedback</p>
+          </Link>
+          <Link to="/voice-ai-interview/core-concepts" className="action-card voice-ai-interview">
+            <Mic size={32} />
+            <h3>Voice AI Interview</h3>
+            <p>Realistic voice interview with Indian accent</p>
           </Link>
         </div>
       </div>

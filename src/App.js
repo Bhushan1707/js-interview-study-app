@@ -10,6 +10,8 @@ import Progress from './components/Progress';
 import JSCompiler from './components/JSCompiler';
 import Exam from './components/Exam';
 import VoiceExam from './components/VoiceExam';
+import AIInterview from './components/AIInterview';
+import VoiceAIInterview from './components/VoiceAIInterview';
 import QuestionDetail from './components/QuestionDetail';
 import DSAPatterns from './components/DSAPatterns';
 import DSAPatternDetail from './components/DSAPatternDetail';
@@ -129,6 +131,12 @@ function App() {
                 <VoiceExam 
                   completedQuestions={completedQuestions}
                 />
+              } />
+              <Route path="/ai-interview/:categoryId" element={
+                <AIInterview />
+              } />
+              <Route path="/voice-ai-interview/:categoryId" element={
+                <VoiceAIInterview />
               } />
               <Route path="/question/:questionId" element={
                 <QuestionDetail 

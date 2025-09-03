@@ -462,6 +462,48 @@
 .actions-grid .action-card:nth-child(2) { animation: scaleIn 0.6s ease-out 2.1s both; }
 .actions-grid .action-card:nth-child(3) { animation: scaleIn 0.6s ease-out 2.2s both; }
 .actions-grid .action-card:nth-child(4) { animation: scaleIn 0.6s ease-out 2.3s both; }
+.actions-grid .action-card:nth-child(5) { animation: scaleIn 0.6s ease-out 2.4s both; }
+.actions-grid .action-card:nth-child(6) { animation: scaleIn 0.6s ease-out 2.5s both; }
+
+/* AI Interview Action Card */
+.action-card.ai-interview {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+}
+
+.action-card.ai-interview:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(102, 126, 234, 0.3);
+}
+
+.action-card.ai-interview h3 {
+  color: white;
+}
+
+.action-card.ai-interview p {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Voice AI Interview Action Card */
+.action-card.voice-ai-interview {
+  background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+  color: white;
+  border: none;
+}
+
+.action-card.voice-ai-interview:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(72, 187, 120, 0.3);
+}
+
+.action-card.voice-ai-interview h3 {
+  color: white;
+}
+
+.action-card.voice-ai-interview p {
+  color: rgba(255, 255, 255, 0.9);
+}
 
 .action-card {
   background: white;

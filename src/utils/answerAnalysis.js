@@ -110,7 +110,7 @@ export class AnswerAnalysisService {
     // Clean and normalize text
     const cleanUserAnswer = this.cleanText(userAnswer);
     const cleanCorrectAnswer = this.cleanText(correctAnswer);
-    const cleanQuestion = this.cleanText(question);
+    // const cleanQuestion = this.cleanText(question); // Unused for now
 
     // 1. Keyword Analysis (40% of score)
     const keywordScore = this.analyzeKeywords(cleanUserAnswer, cleanCorrectAnswer, analysis);
@@ -150,8 +150,8 @@ export class AnswerAnalysisService {
   }
 
   analyzeKeywords(userAnswer, correctAnswer, analysis) {
-    const userWords = new Set(userAnswer.split(' '));
-    const correctWords = new Set(correctAnswer.split(' '));
+    // const userWords = new Set(userAnswer.split(' ')); // Unused for now
+    // const correctWords = new Set(correctAnswer.split(' ')); // Unused for now
     
     let totalWeight = 0;
     let matchedWeight = 0;

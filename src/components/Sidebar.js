@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { X, Home, BookOpen, TrendingUp, Code, Target, Users, User, Award, Brain } from 'lucide-react';
+import { X, Home, BookOpen, TrendingUp, Code, Target, Users, User, Award, Brain, Bot, Mic } from 'lucide-react';
 import { studyCategories } from '../data/questionsData';
 import './Sidebar.css';
 
@@ -132,6 +132,22 @@ const Sidebar = ({ isOpen, onClose }) => {
                   >
                     <Award size={16} />
                     <span>Voice Exam</span>
+                  </Link>
+                  <Link
+                    to={`/ai-interview/${category.id}`}
+                    className={`nav-item exam-link ${location.pathname === `/ai-interview/${category.id}` ? 'active' : ''}`}
+                    onClick={onClose}
+                  >
+                    <Bot size={16} />
+                    <span>AI Interview</span>
+                  </Link>
+                  <Link
+                    to={`/voice-ai-interview/${category.id}`}
+                    className={`nav-item exam-link ${location.pathname === `/voice-ai-interview/${category.id}` ? 'active' : ''}`}
+                    onClick={onClose}
+                  >
+                    <Mic size={16} />
+                    <span>Voice AI</span>
                   </Link>
                 </div>
               );
